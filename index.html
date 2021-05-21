@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>ラベル検索アプリ</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="kadai.css">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="http://mgskjaeveland.github.io/sgvizler/v/0.6/sgvizler.js"></script>
@@ -22,18 +23,22 @@
   <body>
       
     <form id="my-form">
-    <input type="text" name="my-text" value="Tokyo" />
+    <input type="text" name="my-text" value="1990" class="search">
     <button type="button" id="btn">検索</button>
     </form>
     
-    <h1>年</h1>
+    <h1>検索したワードを含むラベル一覧(上限100個)</h1>
+    <div class="box1">
+    <h2>使い方</h2>
+    <p>入力フォームに知りたい単語を入れて検索してください。100個まで表示されます。</p>
+    </div>
     <div id="sgvzl_example_table"
 	 data-sgvizler-endpoint="https://sparql.metadata.moe/dbpedia-ja/query"
 	 data-sgvizler-query="
-         SELECT ?a ?label
+         SELECT ?URL ?label
     WHERE
     {
-    ?a rdfs:label ?label.
+    ?URL rdfs:label ?label.
     FILTER REGEX (?label, '1990')
     }
     LIMIT 100"
@@ -46,10 +51,10 @@
     var val = $('#my-form [name=my-text]').val();
     let sparql = (function() {
         /*
-         SELECT ?a ?label
+         SELECT ?URL ?label
     WHERE
     {
-    ?a rdfs:label ?label.
+    ?URL rdfs:label ?label.
     FILTER REGEX (?label, '{val}')
     }
     LIMIT 100
